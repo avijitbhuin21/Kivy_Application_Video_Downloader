@@ -1,0 +1,319 @@
+#:kivy 2.0.0
+ScreenManager:
+    HomeScreen:
+    IGScreen:
+    SpotifyScreen:
+    FBScreen:
+    YTScreen:
+    ytdetailsScreen:
+    SP_list_Screen:
+    IgdetailsScreen:
+    fbdetailsScreen:
+
+
+
+<HomeScreen>:
+    name: 'Home'
+    MDRelativeLayout:
+
+        #App_logo
+        Image:
+            source: 'projects\Photos\logo.png'
+            size_hint: None,None
+            size: 500,500
+            pos_hint: {'center_x': 0.5, 'center_y': 0.78}
+
+        #Youtube Button
+        Image:
+            source: 'projects\Photos\Youtube_logo.png'
+            size_hint: None,None
+            size: 200,200
+            pos_hint: {'center_x': 0.2, 'center_y': 0.4}
+        Button:
+            size_hint: None, None
+            size: 128, 88
+            pos_hint: {'center_x': 0.2, 'center_y': 0.4}
+            on_press: root.manager.current = 'yt'
+            background_color:(0,0,0,0)
+
+        #Facebook Button
+        Image:
+            source: 'projects\Photos\Fb_logo.png'
+            size_hint: None,None
+            size: 160,160
+            pos_hint: {'center_x': 0.2, 'center_y': 0.15}
+        Button:
+            size_hint: None, None
+            size: 125,125
+            pos_hint: {'center_x': 0.19, 'center_y': 0.16}
+            on_press: root.manager.current = 'fb'
+            background_color:(0,0,0,0)
+
+        #Insta Logo
+        Image:
+            source: 'projects\Photos\insta_logo.png'
+            size_hint: None,None
+            size: 200,200
+            pos_hint: {'center_x': 0.8, 'center_y': 0.15}
+        Button:
+            size_hint: None, None
+            size: 125,125
+            pos_hint: {'center_x': 0.79, 'center_y': 0.16}
+            on_press: root.manager.current = 'ig'
+            background_color:(0,0,0,0)
+
+        #Spotify logo
+        Image:
+            source: 'projects\Photos\spotify_logo.png'
+            size_hint: None,None
+            size: 200,200
+            pos_hint: {'center_x': 0.8, 'center_y': 0.4}
+        Button:
+            size_hint: None, None
+            size: 125,125
+            pos_hint: {'center_x': 0.8, 'center_y': 0.4}
+            on_press: root.manager.current = 'spotify'
+            background_color:(0,0,0,0)
+
+
+<YTScreen>:
+    name: 'yt'
+    Image:
+        source: 'projects\Photos\Youtube_logo.png'
+        size_hint: None,None
+        size: 300,300
+        pos_hint: {'center_x': 0.5, 'center_y': 0.9}
+    MDIconButton:
+        icon: "arrow-left"
+        on_release: root.manager.current = 'Home'
+        pos_hint: {'center_x': 0.05, 'center_y': 0.96}
+    TextInput:
+        id: yt_text_input
+        hint_text: "Enter YouTube video link here"
+        size_hint: (0.8, 0.05)
+        pos_hint: {"center_x": 0.5, "center_y": 0.7}
+        multiline: False
+    TextInput:
+        id: yt_path_input
+        hint_text: "Enter Your Download Path Here"
+        size_hint: (0.8, 0.05)
+        pos_hint: {"center_x": 0.5, "center_y": 0.15}
+        multiline: False
+    MDRectangleFlatButton:
+        text: 'Check Video'
+        pos_hint: {"center_x": 0.5, "center_y": 0.6}
+        on_press: root.yt_update_btn_txt()
+
+
+
+<ytdetailsScreen>:
+    name: 'details_yt'
+    AsyncImage:
+        source: root.thumbnail_url
+        pos_hint: {'center_x': 0.5, 'center_y': 0.77}
+    MDIconButton:
+        icon: "arrow-left"
+        on_release: root.manager.current = 'yt'
+        pos_hint: {'center_x': 0.05, 'center_y': 0.96}
+    Label:
+        text: root.title
+        font_size: 18
+        text_size: (410, None)
+        color: 0, 0, 0, 1 
+        pos_hint: {'x': 0, 'center_y': 0.55}
+
+    Label:
+        text: "CHANNEL: "+root.channel_name
+        font_size: 18
+        text_size: (410, None)
+        color: 0, 0, 0, 1 
+        pos_hint: {'x': 0, 'center_y': 0.46}
+    Label:
+        text: "VIEWS: "+root.views
+        font_size: 18
+        text_size: (410, None)
+        color: 0, 0, 0, 1 
+        pos_hint: {'x': 0, 'center_y': 0.41}
+    Label:
+        text: "DURATION: "+root.duration
+        font_size: 18
+        text_size: (410, None)
+        color: 0, 0, 0, 1 
+        pos_hint: {'x': 0, 'center_y': 0.36}
+    Label:
+        id: choice
+        text: "Please Choose One"
+        font_size: 18
+        text_size: (410, None)
+        color: 0, 0, 0, 1 
+        pos_hint: {'center_x': 0.5, 'center_y': 0.26}
+
+    MDRectangleFlatButton:
+        text: 'Video\n'+root.vid_size
+        pos_hint: {'x': 0.02, 'center_y': 0.2}
+        on_press: root.vid(root.link,root.path)
+    MDRectangleFlatButton:
+        text: 'Audio\n'+root.aud_size
+        pos_hint: {'x': 0.02, 'center_y': 0.1}
+        on_press: root.audio(root.link,root.path)
+
+
+
+<SpotifyScreen>:
+    name: 'spotify'
+    Image:
+        source: 'projects\Photos\spotify_logo.png'
+        size_hint: None,None
+        size: 250,250
+        pos_hint: {'center_x': 0.5, 'center_y': 0.87}
+    MDIconButton:
+        icon: "arrow-left"
+        on_release: root.manager.current = 'Home'
+        pos_hint: {'center_x': 0.05, 'center_y': 0.96}
+    TextInput:
+        id: sp_text_input
+        hint_text: "Enter Spotify link here"
+        size_hint: (0.8, 0.05)
+        pos_hint: {"center_x": 0.5, "center_y": 0.7}
+        multiline: False
+    TextInput:
+        id: sp_path_input
+        hint_text: "Enter Your Download Path Here"
+        size_hint: (0.8, 0.05)
+        pos_hint: {"center_x": 0.5, "center_y": 0.15}
+        multiline: False
+    MDRectangleFlatButton:
+        text: 'Check Details'
+        pos_hint: {"center_x": 0.5, "center_y": 0.6}
+        on_press: root.sp_update_btn_txt()
+    Label:
+        id: sp_songview
+        text: ""
+        font_size: 18
+        text_size: (410, None)
+        color: 0, 0, 0, 1 
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+
+<IGScreen>:
+    name: 'ig'
+    Image:
+        source: 'projects\Photos\insta_logo.png'
+        size_hint: None,None
+        size: 280,280
+        pos_hint: {'center_x': 0.5, 'center_y': 0.87}
+    MDIconButton:
+        icon: "arrow-left"
+        on_release: root.manager.current = 'Home'
+        pos_hint: {'center_x': 0.05, 'center_y': 0.96}
+    TextInput:
+        id: ig_text_input
+        hint_text: "Enter Instagram link..."
+        size_hint: (0.8, 0.05)
+        pos_hint: {"center_x": 0.5, "center_y": 0.7}
+        multiline: False
+    TextInput:
+        id: ig_path_input
+        hint_text: "Enter Your Download Path Here"
+        size_hint: (0.8, 0.05)
+        pos_hint: {"center_x": 0.5, "center_y": 0.15}
+        multiline: False
+    MDRectangleFlatButton:
+        text: 'Check Reel'
+        pos_hint: {"center_x": 0.5, "center_y": 0.6}
+        on_press: root.ig_update_btn_txt()
+
+<IgdetailsScreen>:
+    name: 'details_ig'
+    MDIconButton:
+        icon: "arrow-left"
+        on_release: root.manager.current = 'ig'
+        pos_hint: {'center_x': 0.05, 'center_y': 0.96}
+    Label:
+        text: 'Account: '+root.title
+        text_size: (350, None)
+        halign: 'left'
+        font_size: 18
+        text_size: (410, None)
+        color: 0, 0, 0, 1 
+        pos_hint: {'x': 0.09, 'center_y': 0.96}
+    MDRectangleFlatButton:
+        text: 'Video'
+        pos_hint: {'x': 0.01, 'center_y': 0.04}
+        size_hint:(0.48,0.07)
+        on_press: root.ig_vid_down(root.link,root.path)
+    MDRectangleFlatButton:
+        text: 'Audio'
+        pos_hint: {'x': 0.51, 'center_y': 0.04}
+        size_hint:(0.48,0.07)
+        on_press: root.ig_audio_down(root.link,root.path)
+    AsyncImage:
+        source: root.thumbnail_url
+        pos_hint: {'center_x': 0.5, 'y': 0.08}
+        size_hint: (1,0.85)
+
+
+
+
+
+<FBScreen>:
+    name: 'fb'
+    Image:
+        source: 'projects\Photos\Fb_logo.png'
+        size_hint: None,None
+        size: 250,250
+        pos_hint: {'center_x': 0.5, 'center_y': 0.87}
+    MDIconButton:
+        icon: "arrow-left"
+        on_release: root.manager.current = 'Home'
+        pos_hint: {'center_x': 0.05, 'center_y': 0.96}
+    TextInput:
+        id: fb_text_input
+        hint_text: "Enter FaceBook video link here"
+        size_hint: (0.8, 0.05)
+        pos_hint: {"center_x": 0.5, "center_y": 0.7}
+        multiline: False
+    TextInput:
+        id: fb_path_input
+        hint_text: "Enter Your Download Path Here"
+        size_hint: (0.8, 0.05)
+        pos_hint: {"center_x": 0.5, "center_y": 0.15}
+        multiline: False
+    MDRectangleFlatButton:
+        text: 'Check Video'
+        pos_hint: {"center_x": 0.5, "center_y": 0.6}
+        on_press: root.fb_update_btn_txt()
+
+
+
+<fbdetailsScreen>:
+    name: 'details_fb'
+    AsyncImage:
+        source: root.thumbnail_url
+        pos_hint: {'center_x': 0.5, 'center_y': 0.77}
+    MDIconButton:
+        icon: "arrow-left"
+        on_release: root.manager.current = 'fb'
+        pos_hint: {'center_x': 0.05, 'center_y': 0.96}
+    Label:
+        text: root.title
+        font_size: 18
+        text_size: (410, None)
+        color: 0, 0, 0, 1 
+        pos_hint: {'x': 0, 'center_y': 0.5}
+    Label:
+        id: choice
+        text: "Please Choose One"
+        font_size: 18
+        text_size: (410, None)
+        color: 0, 0, 0, 1 
+        pos_hint: {'center_x': 0.5, 'center_y': 0.26}
+
+    MDRectangleFlatButton:
+        text: 'High Quality Video'
+        pos_hint: {'x': 0.02, 'center_y': 0.2}
+        on_press: root.hy_vid()
+    MDRectangleFlatButton:
+        text: 'High Quality Audio'
+        pos_hint: {'x': 0.02, 'center_y': 0.1}
+        on_press: root.fb_aud_down()
